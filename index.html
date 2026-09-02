@@ -181,7 +181,9 @@
         }
 
         /* Specific Vrolijke Kleuren */
+        .card-kopje { background-color: #E0F7FA; } .card-kopje .drink-icon { stroke: #00838F; } .card-kopje .drink-size { color: #00838F; }
         .card-glas { background-color: #E1F5FE; } .card-glas .drink-icon { stroke: #0288D1; } .card-glas .drink-size { color: #0288D1; }
+        .card-mok { background-color: #E8EAF6; } .card-mok .drink-icon { stroke: #3F51B5; } .card-mok .drink-size { color: #3F51B5; }
         .card-dopper { background-color: #FFE0B2; } .card-dopper .drink-icon { stroke: #F57C00; } .card-dopper .drink-size { color: #F57C00; }
         .card-bidon { background-color: #FFF9C4; } .card-bidon .drink-icon { stroke: #FBC02D; } .card-bidon .drink-size { color: #FBC02D; }
         .card-shaker { background-color: #F3E5F5; } .card-shaker .drink-icon { stroke: #7B1FA2; } .card-shaker .drink-size { color: #7B1FA2; }
@@ -359,10 +361,22 @@
             <span class="section-title">Snel Toevoegen</span>
             
             <div class="drink-grid">
+                <button class="drink-card card-kopje" onclick="addWater(150)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M17 8h1a3 3 0 0 1 0 6h-1 M3 8h14v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/></svg>
+                    <span class="drink-name">Kopje</span>
+                    <span class="drink-size">150 ml</span>
+                </button>
+
                 <button class="drink-card card-glas" onclick="addWater(250)">
                     <svg class="drink-icon" viewBox="0 0 24 24"><path d="M7 2h10l-1 18H8L7 2z"/></svg>
                     <span class="drink-name">Glas</span>
                     <span class="drink-size">250 ml</span>
+                </button>
+
+                <button class="drink-card card-mok" onclick="addWater(300)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M18 8h1a3 3 0 0 1 0 6h-1 M2 8h16v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8z"/></svg>
+                    <span class="drink-name">Mok</span>
+                    <span class="drink-size">300 ml</span>
                 </button>
 
                 <button class="drink-card card-dopper" onclick="addWater(450)">
@@ -496,7 +510,6 @@
             let checkDate = new Date();
             const targetMl = goalLiters * 1000;
 
-            // Check gisteren en verder terug
             while (true) {
                 const key = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
                 const logged = logs[key] || 0;
@@ -505,7 +518,6 @@
                     streak++;
                     checkDate.setDate(checkDate.getDate() - 1);
                 } else {
-                    // Als het vandaag is en nog niet gehaald, verpeste het de streak niet van gisteren
                     const todayKey = getTodayKey();
                     if (key === todayKey) {
                         checkDate.setDate(checkDate.getDate() - 1);
