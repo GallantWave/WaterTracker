@@ -3,67 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#F8F4E8">
+    <meta name="theme-color" content="#F6F3E7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>Water Tracker</title>
+    <title>WaterTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #F8F4E8;
-            --card-bg: #FFFFFF;
-            --text-main: #2C3E50;
-            --water-blue: #3498DB;
-            --water-light: #EBF5FB;
-            --accent-green: #2ECC71;
-            --accent-yellow: #F1C40F;
-            --accent-orange: #E67E22;
-            --accent-purple: #9B59B6;
-            --accent-pink: #E84393;
-            --radius-large: 24px;
-            --radius-small: 16px;
+            --bg-color: #F6F3E7;
+            --text-color: #2D3748;
+            --primary-blue: #00A8FF;
+            --radius-main: 24px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Fredoka', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-main);
+            background-image: radial-gradient(#D6CFC0 1.5px, transparent 1.5px);
+            background-size: 20px 20px;
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: calc(15px + env(safe-area-inset-top)) 16px 90px 16px;
+            padding: calc(20px + env(safe-area-inset-top)) 16px 100px 16px;
         }
 
-        .app-container {
+        .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 20px;
         }
 
-        /* Goal Header */
-        .goal-container {
-            background: var(--card-bg);
-            padding: 16px 20px;
-            border-radius: var(--radius-large);
+        /* Top Goal Bar */
+        .goal-bar {
+            background: #FFFFFF;
+            padding: 10px 24px;
+            border-radius: 40px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            gap: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .goal-title {
-            font-weight: 800;
+            font-weight: 700;
             font-size: 1.1rem;
-            color: #576574;
+            color: #4A5568;
         }
 
         .goal-controls {
@@ -72,184 +71,159 @@
             gap: 12px;
         }
 
-        .btn-btn {
-            width: 36px;
-            height: 36px;
+        .btn-circle {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: none;
-            background: var(--water-light);
-            color: var(--water-blue);
+            background-color: #EBF8FF;
+            color: #3182CE;
             font-size: 1.2rem;
-            font-weight: 800;
-            cursor: pointer;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.1s;
-        }
-
-        .btn-btn:active {
-            transform: scale(0.9);
+            cursor: pointer;
         }
 
         .goal-value {
-            font-weight: 800;
+            font-weight: 700;
             font-size: 1.2rem;
-            color: var(--water-blue);
-            min-width: 60px;
+            color: #00A8FF;
+            min-width: 50px;
             text-align: center;
         }
 
-        /* Water Drop Visual */
-        .drop-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-large);
-            padding: 30px 20px;
+        /* Drop Center */
+        .drop-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            gap: 15px;
+            margin: 10px 0;
         }
 
-        .drop-svg-container {
-            width: 170px;
-            height: 210px;
+        .drop-wrapper {
             position: relative;
+            width: 140px;
+            height: 170px;
         }
 
         .drop-svg {
             width: 100%;
             height: 100%;
+            filter: drop-shadow(0px 10px 20px rgba(0, 168, 255, 0.15));
         }
 
-        .status-pill {
-            background: var(--water-light);
-            color: var(--water-blue);
-            padding: 10px 24px;
+        .amount-pill {
+            background: #FFFFFF;
+            color: #00A8FF;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 10px 28px;
             border-radius: 30px;
-            font-size: 1.4rem;
-            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
         }
 
-        /* Quick Add Grid */
-        .section-header {
+        /* Drink Grid */
+        .section-title {
+            font-weight: 700;
             font-size: 1.1rem;
-            font-weight: 800;
-            color: #576574;
+            color: #2D3748;
+            align-self: center;
+            margin-top: 5px;
         }
 
         .drink-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        .drink-card {
-            background: var(--card-bg);
-            border: none;
-            border-radius: var(--radius-large);
-            padding: 18px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.03);
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-
-        .drink-card:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-
-        .icon-box {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-small);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-box svg {
-            width: 26px;
-            height: 26px;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-        }
-
-        /* Specific Drink Colors */
-        .bg-glas { background: #E3F2FD; } .icon-glas svg { stroke: #1E88E5; }
-        .bg-dopper { background: #FFE0B2; } .icon-dopper svg { stroke: #FB8C00; }
-        .bg-bidon { background: #E8F5E9; } .icon-bidon svg { stroke: #43A047; }
-        .bg-shaker { background: #F3E5F5; } .icon-shaker svg { stroke: #AB47BC; }
-        .bg-blikje { background: #FFFDE7; } .icon-blikje svg { stroke: #FDD835; }
-        .bg-flesje { background: #FCE4EC; } .icon-flesje svg { stroke: #F06292; }
-
-        .drink-title {
-            font-weight: 800;
-            font-size: 1rem;
-            color: var(--text-main);
-        }
-
-        .drink-volume {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #A0AEC0;
-        }
-
-        /* Tabs & Bottom Navigation */
-        .tab-panel {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             width: 100%;
         }
 
-        .tab-panel.active {
-            display: flex;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            padding: 12px 20px calc(12px + env(safe-area-inset-bottom)) 20px;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.04);
-            border-top-left-radius: 24px;
-            border-top-right-radius: 24px;
-        }
-
-        .nav-item {
+        .drink-card {
             border: none;
-            background: none;
-            font-size: 1rem;
-            font-weight: 800;
-            color: #A0AEC0;
-            padding: 10px 24px;
-            border-radius: 20px;
+            border-radius: var(--radius-main);
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             cursor: pointer;
-            transition: all 0.2s;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            transition: transform 0.1s ease;
         }
 
-        .nav-item.active {
-            color: var(--water-blue);
-            background: var(--water-light);
+        .drink-card:active {
+            transform: scale(0.96);
         }
 
-        /* Calendar Styling */
+        .drink-icon {
+            width: 36px;
+            height: 36px;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .drink-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #2D3748;
+        }
+
+        .drink-size {
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        /* Specific Vrolijke Kleuren */
+        .card-glas { background-color: #E1F5FE; } .card-glas .drink-icon { stroke: #0288D1; } .card-glas .drink-size { color: #0288D1; }
+        .card-dopper { background-color: #FFE0B2; } .card-dopper .drink-icon { stroke: #F57C00; } .card-dopper .drink-size { color: #F57C00; }
+        .card-bidon { background-color: #FFF9C4; } .card-bidon .drink-icon { stroke: #FBC02D; } .card-bidon .drink-size { color: #FBC02D; }
+        .card-shaker { background-color: #F3E5F5; } .card-shaker .drink-icon { stroke: #7B1FA2; } .card-shaker .drink-size { color: #7B1FA2; }
+        .card-blikje { background-color: #FFEBEE; } .card-blikje .drink-icon { stroke: #D32F2F; } .card-blikje .drink-size { color: #D32F2F; }
+        .card-flesje { background-color: #E8F5E9; } .card-flesje .drink-icon { stroke: #388E3C; } .card-flesje .drink-size { color: #388E3C; }
+
+        /* Streak Card */
+        .streak-card {
+            background: linear-gradient(135deg, #FF9F43 0%, #FF5252 100%);
+            border-radius: var(--radius-main);
+            padding: 24px;
+            width: 100%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.25);
+        }
+
+        .streak-icon {
+            font-size: 2.2rem;
+        }
+
+        .streak-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .streak-count {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        /* Kalender Grid */
         .calendar-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-large);
-            padding: 24px 18px;
+            background: #FFFFFF;
+            border-radius: var(--radius-main);
+            padding: 24px;
+            width: 100%;
             box-shadow: 0 8px 20px rgba(0,0,0,0.03);
         }
 
@@ -257,46 +231,90 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 10px;
-            margin-top: 16px;
+            margin-top: 15px;
             text-align: center;
         }
 
-        .day-header {
+        .day-label {
             font-size: 0.85rem;
-            font-weight: 800;
+            font-weight: 700;
             color: #A0AEC0;
         }
 
-        .cal-day {
+        .day-cell {
             aspect-ratio: 1;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
             background: #F7FAFC;
+            color: #2D3748;
+        }
+
+        .day-cell.completed {
+            background: #48BB78;
+            color: white;
+        }
+
+        .day-cell.partial {
+            background: #ECC94B;
+            color: white;
+        }
+
+        /* Bottom Nav */
+        .tab-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 10px calc(10px + env(safe-area-inset-bottom)) 10px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+        }
+
+        .nav-btn {
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            font-size: 1rem;
             color: #718096;
+            cursor: pointer;
+            padding: 12px 0;
+            width: 48%;
+            border-radius: 30px;
+            transition: all 0.2s ease;
         }
 
-        .cal-day.done {
-            background: var(--accent-green);
-            color: #FFFFFF;
-        }
-
-        .cal-day.half {
-            background: var(--accent-yellow);
-            color: #FFFFFF;
+        .nav-btn.active {
+            color: #00A8FF;
+            background-color: #E1F5FE;
         }
 
         .reset-btn {
             background: #FFEBEE;
             color: #E53935;
             border: none;
-            padding: 14px;
-            border-radius: var(--radius-large);
-            font-weight: 800;
-            font-size: 0.95rem;
+            width: 100%;
+            padding: 16px;
+            border-radius: var(--radius-main);
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
             margin-top: 10px;
         }
@@ -304,226 +322,247 @@
 </head>
 <body>
 
-    <div class="app-container">
+    <div class="container">
         
         <!-- HYDRATATIE TAB -->
-        <div id="panel-hydratatie" class="tab-panel active">
+        <div id="tab-hydratatie" class="tab-content active">
             
-            <div class="goal-container">
+            <div class="goal-bar">
                 <span class="goal-title">Dagdoel</span>
                 <div class="goal-controls">
-                    <button class="btn-btn" onclick="updateGoal(-0.5)">-</button>
-                    <span id="goal-lbl" class="goal-value">2.5 L</span>
-                    <button class="btn-btn" onclick="updateGoal(0.5)">+</button>
+                    <button class="btn-circle" onclick="adjustGoal(-0.5)">-</button>
+                    <span id="goal-display" class="goal-value">3.0 L</span>
+                    <button class="btn-circle" onclick="adjustGoal(0.5)">+</button>
                 </div>
             </div>
 
-            <div class="drop-card">
-                <div class="drop-svg-container">
+            <div class="drop-section">
+                <div class="drop-wrapper">
                     <svg class="drop-svg" viewBox="0 0 100 120">
                         <defs>
-                            <clipPath id="drop-shape">
+                            <clipPath id="drop-clip">
                                 <path d="M50 0 C50 0 0 60 0 85 A50 50 0 0 0 100 85 C100 60 50 0 50 0 Z" />
                             </clipPath>
                         </defs>
-                        <!-- Back drop -->
-                        <path d="M50 0 C50 0 0 60 0 85 A50 50 0 0 0 100 85 C100 60 50 0 50 0 Z" fill="#EBF5FB" />
-                        <!-- Water level -->
-                        <g clip-path="url(#drop-shape)">
-                            <rect id="water-fill" x="0" y="120" width="100" height="120" fill="#3498DB" style="transition: y 0.4s ease;" />
+                        <path d="M50 0 C50 0 0 60 0 85 A50 50 0 0 0 100 85 C100 60 50 0 50 0 Z" fill="#E1F5FE" />
+                        <g clip-path="url(#drop-clip)">
+                            <rect id="water-fill" x="0" y="120" width="100" height="120" fill="#B3E5FC" style="transition: y 0.4s ease;" />
                         </g>
-                        <!-- Border -->
-                        <path d="M50 0 C50 0 0 60 0 85 A50 50 0 0 0 100 85 C100 60 50 0 50 0 Z" fill="none" stroke="#2980B9" stroke-width="2.5" />
                     </svg>
                 </div>
 
-                <div class="status-pill">
-                    <span id="curr-ml">0</span> / <span id="targ-ml">2500</span> ml
+                <div class="amount-pill">
+                    <span id="current-display">0</span> / <span id="target-display">3000</span> ml
                 </div>
             </div>
 
-            <span class="section-header">Snel Toevoegen</span>
-
+            <span class="section-title">Snel Toevoegen</span>
+            
             <div class="drink-grid">
-                <button class="drink-card" onclick="addWater(250)">
-                    <div class="icon-box bg-glas icon-glas">
-                        <svg viewBox="0 0 24 24"><path d="M7 2h10l-1 18H8L7 2z"/></svg>
-                    </div>
-                    <span class="drink-title">Glas</span>
-                    <span class="drink-volume">250 ml</span>
+                <button class="drink-card card-glas" onclick="addWater(250)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M7 2h10l-1 18H8L7 2z"/></svg>
+                    <span class="drink-name">Glas</span>
+                    <span class="drink-size">250 ml</span>
                 </button>
 
-                <button class="drink-card" onclick="addWater(450)">
-                    <div class="icon-box bg-dopper icon-dopper">
-                        <svg viewBox="0 0 24 24"><path d="M9 2h6v3H9V2z M8 5h8v15H8V5z"/></svg>
-                    </div>
-                    <span class="drink-title">Dopper</span>
-                    <span class="drink-volume">450 ml</span>
+                <button class="drink-card card-dopper" onclick="addWater(450)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M9 2h6v3H9V2z M8 5h8v15H8V5z"/></svg>
+                    <span class="drink-name">Dopper</span>
+                    <span class="drink-size">450 ml</span>
                 </button>
 
-                <button class="drink-card" onclick="addWater(750)">
-                    <div class="icon-box bg-bidon icon-bidon">
-                        <svg viewBox="0 0 24 24"><path d="M10 2h4v2h-4V2z M7 6h10l-1 14H8L7 6z"/></svg>
-                    </div>
-                    <span class="drink-title">Bidon</span>
-                    <span class="drink-volume">750 ml</span>
+                <button class="drink-card card-bidon" onclick="addWater(750)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M10 2h4v2h-4V2z M7 6h10l-1 14H8L7 6z"/></svg>
+                    <span class="drink-name">Bidon</span>
+                    <span class="drink-size">750 ml</span>
                 </button>
 
-                <button class="drink-card" onclick="addWater(600)">
-                    <div class="icon-box bg-shaker icon-shaker">
-                        <svg viewBox="0 0 24 24"><rect x="7" y="4" width="10" height="16" rx="2"/></svg>
-                    </div>
-                    <span class="drink-title">Shaker</span>
-                    <span class="drink-volume">600 ml</span>
+                <button class="drink-card card-shaker" onclick="addWater(700)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><rect x="7" y="4" width="10" height="16" rx="2"/></svg>
+                    <span class="drink-name">Shaker</span>
+                    <span class="drink-size">700 ml</span>
                 </button>
 
-                <button class="drink-card" onclick="addWater(330)">
-                    <div class="icon-box bg-blikje icon-blikje">
-                        <svg viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="18" rx="3"/></svg>
-                    </div>
-                    <span class="drink-title">Blikje</span>
-                    <span class="drink-volume">330 ml</span>
+                <button class="drink-card card-blikje" onclick="addWater(330)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="18" rx="3"/></svg>
+                    <span class="drink-name">Blikje</span>
+                    <span class="drink-size">330 ml</span>
                 </button>
 
-                <button class="drink-card" onclick="addWater(500)">
-                    <div class="icon-box bg-flesje icon-flesje">
-                        <svg viewBox="0 0 24 24"><path d="M10 2h4v3h-4V2z M8 8h8l-1 12H9L8 8z"/></svg>
-                    </div>
-                    <span class="drink-title">Flesje</span>
-                    <span class="drink-volume">500 ml</span>
+                <button class="drink-card card-flesje" onclick="addWater(500)">
+                    <svg class="drink-icon" viewBox="0 0 24 24"><path d="M10 2h4v3h-4V2z M8 8h8l-1 12H9L8 8z"/></svg>
+                    <span class="drink-name">Flesje</span>
+                    <span class="drink-size">500 ml</span>
                 </button>
             </div>
 
-            <button class="reset-btn" onclick="resetDay()">Reset Vandaag</button>
+            <button class="reset-btn" onclick="resetToday()">Reset Vandaag</button>
 
         </div>
 
         <!-- KALENDER TAB -->
-        <div id="panel-kalender" class="tab-panel">
-            <div class="calendar-card">
-                <span class="section-header">Maandoverzicht</span>
-                <div class="calendar-grid" id="cal-grid"></div>
+        <div id="tab-kalender" class="tab-content">
+            
+            <div class="streak-card">
+                <span class="streak-icon">🔥</span>
+                <span class="streak-title">HUIDIGE STREAK</span>
+                <span id="streak-display" class="streak-count">0 Dagen</span>
             </div>
+
+            <div class="calendar-card">
+                <span class="section-title" style="display:block; margin-bottom:10px;">Maandoverzicht</span>
+                <div class="calendar-grid" id="calendar-cells"></div>
+            </div>
+
         </div>
 
     </div>
 
-    <!-- Bottom Nav Bar -->
-    <div class="bottom-nav">
-        <button id="nav-hydr" class="nav-item active" onclick="showTab('hydratatie')">Hydratatie</button>
-        <button id="nav-kal" class="nav-item" onclick="showTab('kalender')">Kalender</button>
+    <!-- Bottom Navigation -->
+    <div class="nav-bar">
+        <button id="nav-hydratatie" class="nav-btn active" onclick="switchTab('hydratatie')">Hydratatie</button>
+        <button id="nav-kalender" class="nav-btn" onclick="switchTab('kalender')">Kalender</button>
     </div>
 
     <script>
-        let currentGoal = parseFloat(localStorage.getItem('wt_goal')) || 2.5;
-        let waterData = JSON.parse(localStorage.getItem('wt_data')) || {};
+        let goalLiters = parseFloat(localStorage.getItem('water_goal')) || 3.0;
+        let logs = JSON.parse(localStorage.getItem('water_logs')) || {};
 
-        function getToday() {
+        function getTodayKey() {
             const d = new Date();
             return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         }
 
-        function initApp() {
-            const today = getToday();
-            if (waterData[today] === undefined) {
-                waterData[today] = 0;
+        function init() {
+            const today = getTodayKey();
+            if (logs[today] === undefined) {
+                logs[today] = 0;
             }
-            renderUI();
-            buildCalendar();
+            updateUI();
+            renderCalendar();
+            calculateStreak();
         }
 
-        function renderUI() {
-            const today = getToday();
-            const logged = waterData[today] || 0;
-            const target = currentGoal * 1000;
+        function updateUI() {
+            const today = getTodayKey();
+            const currentMl = logs[today] || 0;
+            const targetMl = goalLiters * 1000;
 
-            document.getElementById('goal-lbl').innerText = currentGoal.toFixed(1) + ' L';
-            document.getElementById('curr-ml').innerText = logged;
-            document.getElementById('targ-ml').innerText = target;
+            document.getElementById('goal-display').innerText = goalLiters.toFixed(1) + ' L';
+            document.getElementById('current-display').innerText = currentMl;
+            document.getElementById('target-display').innerText = targetMl;
 
-            // Animate Drop Fill
-            const ratio = Math.min(logged / target, 1);
-            const fillPos = 120 - (ratio * 120);
-            document.getElementById('water-fill').setAttribute('y', fillPos);
+            const percentage = Math.min(currentMl / targetMl, 1);
+            const fillY = 120 - (percentage * 120);
+            document.getElementById('water-fill').setAttribute('y', fillY);
 
-            localStorage.setItem('wt_goal', currentGoal);
-            localStorage.setItem('wt_data', JSON.stringify(waterData));
+            localStorage.setItem('water_goal', goalLiters);
+            localStorage.setItem('water_logs', JSON.stringify(logs));
         }
 
         function addWater(amount) {
-            const today = getToday();
-            waterData[today] = (waterData[today] || 0) + amount;
-            renderUI();
-            buildCalendar();
+            const today = getTodayKey();
+            logs[today] = (logs[today] || 0) + amount;
+            updateUI();
+            renderCalendar();
+            calculateStreak();
         }
 
-        function resetDay() {
-            const today = getToday();
-            waterData[today] = 0;
-            renderUI();
-            buildCalendar();
+        function resetToday() {
+            const today = getTodayKey();
+            logs[today] = 0;
+            updateUI();
+            renderCalendar();
+            calculateStreak();
         }
 
-        function updateGoal(delta) {
-            currentGoal = Math.max(0.5, currentGoal + delta);
-            renderUI();
-            buildCalendar();
+        function adjustGoal(delta) {
+            goalLiters = Math.max(0.5, goalLiters + delta);
+            updateUI();
+            renderCalendar();
+            calculateStreak();
         }
 
-        function showTab(tab) {
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
-            document.getElementById(`panel-${tab}`).classList.add('active');
-            if(tab === 'hydratatie') document.getElementById('nav-hydr').classList.add('active');
-            if(tab === 'kalender') document.getElementById('nav-kal').classList.add('active');
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            document.getElementById(`nav-${tab}`).classList.add('active');
         }
 
-        function buildCalendar() {
-            const grid = document.getElementById('cal-grid');
+        function calculateStreak() {
+            let streak = 0;
+            let checkDate = new Date();
+            const targetMl = goalLiters * 1000;
+
+            // Check gisteren en verder terug
+            while (true) {
+                const key = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
+                const logged = logs[key] || 0;
+
+                if (logged >= targetMl) {
+                    streak++;
+                    checkDate.setDate(checkDate.getDate() - 1);
+                } else {
+                    // Als het vandaag is en nog niet gehaald, verpeste het de streak niet van gisteren
+                    const todayKey = getTodayKey();
+                    if (key === todayKey) {
+                        checkDate.setDate(checkDate.getDate() - 1);
+                        continue;
+                    }
+                    break;
+                }
+            }
+
+            document.getElementById('streak-display').innerText = streak + (streak === 1 ? ' Dag' : ' Dagen');
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-cells');
             grid.innerHTML = '';
 
-            const dayNames = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
-            dayNames.forEach(name => {
-                const h = document.createElement('div');
-                h.className = 'day-header';
-                h.innerText = name;
-                grid.appendChild(h);
+            const days = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+            days.forEach(d => {
+                const label = document.createElement('div');
+                label.className = 'day-label';
+                label.innerText = d;
+                grid.appendChild(label);
             });
 
             const now = new Date();
-            const y = now.getFullYear();
-            const m = now.getMonth();
+            const year = now.getFullYear();
+            const month = now.getMonth();
 
-            const firstDay = new Date(y, m, 1);
-            let offset = (firstDay.getDay() + 6) % 7; // Maandag start
+            const firstDay = new Date(year, month, 1);
+            let startOffset = (firstDay.getDay() + 6) % 7;
 
-            for (let i = 0; i < offset; i++) {
+            for (let i = 0; i < startOffset; i++) {
                 grid.appendChild(document.createElement('div'));
             }
 
-            const daysInMonth = new Date(y, m + 1, 0).getDate();
-            const target = currentGoal * 1000;
+            const totalDays = new Date(year, month + 1, 0).getDate();
+            const targetMl = goalLiters * 1000;
 
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dateKey = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                const val = waterData[dateKey] || 0;
+            for (let day = 1; day <= totalDays; day++) {
+                const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const logged = logs[key] || 0;
 
                 const cell = document.createElement('div');
-                cell.className = 'cal-day';
-                cell.innerText = d;
+                cell.className = 'day-cell';
+                cell.innerText = day;
 
-                if (val >= target) {
-                    cell.classList.add('done');
-                } else if (val > 0) {
-                    cell.classList.add('half');
+                if (logged >= targetMl) {
+                    cell.classList.add('completed');
+                } else if (logged > 0) {
+                    cell.classList.add('partial');
                 }
 
                 grid.appendChild(cell);
             }
         }
 
-        initApp();
+        init();
     </script>
 </body>
 </html>
